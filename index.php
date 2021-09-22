@@ -11,9 +11,9 @@
     <span id="error" style="color: red; font-weight: bold;"></span>
 
     <br><br>
-    <button onclick="segitiga();">Generate Segitiga</button>
-    <button onclick="ganjil();">Generate Bilangan Ganjil</button>
-    <button onclick="prima();">Generate Bilangan Prima</button>
+    <button onclick="check('segitiga');">Generate Segitiga</button>
+    <button onclick="check('ganjil');">Generate Bilangan Ganjil</button>
+    <button onclick="check('prima');">Generate Bilangan Prima</button>
 
     <br>
     <h1 >Result : </h1>
@@ -27,74 +27,38 @@
             $('#error').html('');
         }
 
-        function segitiga(){
-            
+        function check(type){
+
             var input = $('input').val();
             if(input == 0 || input == ''){
                 $('#error').html('Mohon lengkapi data');
-            }else{
-                clearError();
-
-                var data = {'input': input}
-
-                $.post('/segitiga.php', data, function(result){
-
-                    var result = JSON.parse(result);
-
-                    if(result.success){
-                        $('#result').html(result.result);
-                    }else{
-                        $('#error').html(result.message);
-                    }
-
-                });
             }
-        }
 
-        function ganjil(){
-            var input = $('input').val();
+            clearError();
+            var data = {'input': input}
+            var url = '';
 
-            if(input == 0 || input == ''){
-                $('#error').html('Mohon lengkapi data');
+            if(type=='segitiga'){
+                url = '/segitiga.php';
+            }else if(type=='ganjil'){
+                url = '/ganjil.php';
             }else{
-                clearError();
-
-                var data = {'input': input}
-
-                $.post('/ganjil.php', data, function(result){
-                    var result = JSON.parse(result);
-
-                    if(result.success){
-                        $('#result').html(result.result);
-                    }else{
-                        $('#error').html(result.message);
-                    }
-                });
+                url = '/prima.php';
             }
+
+            $.post(url, data, function(result){
+
+                var result = JSON.parse(result);
+
+                if(result.success){
+                    $('#result').html(result.result);
+                }else{
+                    $('#error').html(result.message);
+                }
+
+            });
+
         }
-
-        function prima(){
-            var input = $('input').val();
-
-            if(input == 0 || input == ''){
-                $('#error').html('Mohon lengkapi data');
-            }else{
-                clearError();
-
-                var data = {'input': input}
-
-                $.post('/prima.php', data, function(result){
-                    var result = JSON.parse(result);
-
-                    if(result.success){
-                        $('#result').html(result.result);
-                    }else{
-                        $('#error').html(result.message);
-                    }
-                });
-            }
-        }
-
 
     </script>
     </body>
