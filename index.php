@@ -13,7 +13,7 @@
     <br><br>
     <button onclick="segitiga();">Generate Segitiga</button>
     <button onclick="ganjil();">Generate Bilangan Ganjil</button>
-    <button>Generate Bilangan Prima</button>
+    <button onclick="prima();">Generate Bilangan Prima</button>
 
     <br>
     <h1 >Result : </h1>
